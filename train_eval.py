@@ -132,5 +132,5 @@ if __name__ == '__main__':
 
     if opt.mode == 'evaluate':
         print('start evaluate')
-        model.load_state_dict(torch.load(opt.cpt))
+        model.load_state_dict(torch.load(opt.weight))
         reid.test()

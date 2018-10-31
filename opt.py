@@ -19,7 +19,7 @@ parser.add_argument('--freeze',
                     default=False,
                     help='freeze backbone or not ')
 
-parser.add_argument('--cpt',
+parser.add_argument('--weight',
                     default='weights/model_400.pt',
                     help='load weights ')
 
