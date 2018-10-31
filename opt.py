@@ -3,7 +3,7 @@ import argparse
 parser = argparse.ArgumentParser(description='reid')
 
 parser.add_argument('--data_path',
-                    default="/path to/Market-1501-v15.09.15",
+                    default="path/to/Market-1501-v15.09.15",
                     help='path of Market-1501-v15.09.15')
 
 parser.add_argument('--mode',

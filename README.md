@@ -15,12 +15,37 @@ This is a non-official pytorch re-production of paper:[Learning Discriminative F
 
 ## Current Progress
 
-
+### re-rank
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
 | resnet50 |  94.28 | 95.67 | 97.45 | 97.89 | 98.60 |  
 | resnet101 |  94.50 | 95.87 | 97.62 | 98.16 | 98.57 | 
 | paper |  94.20 | 96.60 | - | - | - | 
+
+### no re-rank
+| backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
+| :------: |  :------: | :------: | :------: | :------: |  :------: |   
+| resnet50 |  85.96 | 94.63 | 97.54 | 98.28 | 98.96 |  
+| resnet101 |  86.20 | 95.07 | 97.57 | 98.34 | 98.90 | 
+| paper |  86.90 | 95.70 | - | - | - | 
+
+
+## Train
+
+### Prepare training data
+
+Download Market1501 training data.[here](http://www.liangzheng.org/Project/project_reid.html)
+
+```
+python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --mode train
+```
+
+## Test
+
+```
+python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --mode evaluate
+```
+
 
 ## Citation
 
