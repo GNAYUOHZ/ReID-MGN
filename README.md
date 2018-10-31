@@ -13,7 +13,7 @@ This is a non-official pytorch re-production of paper:[Learning Discriminative F
 
 
 
-## Current Progress
+## Current Result
 
 ### With Re-Ranking
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
@@ -36,8 +36,8 @@ Download Market1501  data from [here](http://www.liangzheng.org/Project/project_
 
 ## Weights
 
-Pretrained weights with resnet50 backbone can download from [here](https://drive.google.com/open?id=1ECkD2js0kA82ptod3QfzNDpP9fkt3LZB)  
-Pretrained weights with resnet101 backbone can download from [here](https://drive.google.com/open?id=1LUo8JAHOcCKr2qwJdD0UYZsoVvW3BD60)
+Pretrained weight with resnet50 backbone download from [here](https://drive.google.com/open?id=1ECkD2js0kA82ptod3QfzNDpP9fkt3LZB)  
+Pretrained weight with resnet101 backbone download from [here](https://drive.google.com/open?id=1LUo8JAHOcCKr2qwJdD0UYZsoVvW3BD60)
 
 ## Train
 
