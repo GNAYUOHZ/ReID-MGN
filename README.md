@@ -46,7 +46,7 @@ python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --mode train
 Download pretrained weights use script weights/download.sh or use your checkpoint.
 
 ```
-python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight> --mode evaluate
+python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> --mode evaluate
 ```
 
 
