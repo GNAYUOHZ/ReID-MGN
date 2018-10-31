@@ -15,14 +15,14 @@ This is a non-official pytorch re-production of paper:[Learning Discriminative F
 
 ## Current Progress
 
-### re-rank
+### With Re-Ranking
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
 | resnet50 |  94.28 | 95.67 | 97.45 | 97.89 | 98.60 |  
 | resnet101 |  94.50 | 95.87 | 97.62 | 98.16 | 98.57 | 
 | paper |  94.20 | 96.60 | - | - | - | 
 
-### no re-rank
+### Without Re-Ranking
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
 | resnet50 |  85.96 | 94.63 | 97.54 | 98.28 | 98.96 |  
