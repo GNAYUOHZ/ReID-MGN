@@ -32,10 +32,16 @@ This is a non-official pytorch re-production of paper:[Learning Discriminative F
 
 ## Data
 
-Download Market1501 training data.[here](http://www.liangzheng.org/Project/project_reid.html)
+Download Market1501 training data from [here](http://www.liangzheng.org/Project/project_reid.html)
 
+## Weights
+
+Pretrained weights with resnet50 backbone can download from [here](https://drive.google.com/open?id=1ECkD2js0kA82ptod3QfzNDpP9fkt3LZB)  
+Pretrained weights with resnet101 backbone can download from [here](https://drive.google.com/open?id=1LUo8JAHOcCKr2qwJdD0UYZsoVvW3BD60)
 
 ## Train
+
+You can specify more parameters in opt.py
 
 ```
 python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --mode train
@@ -43,10 +49,11 @@ python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --mode train
 
 ## Test
 
-Download pretrained weights use script weights/download.sh or use your checkpoint.
+Use pretrained weight or your trained weight.
 
 ```
-python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> --mode evaluate
+python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> 
+--backbone <correspond to weight,choices=['resnet50', 'resnet101']>--mode evaluate
 ```
 
 
