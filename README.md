@@ -27,7 +27,7 @@ This is a non-official pytorch re-production of paper:[Learning Discriminative F
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
 | resnet50 |  85.96 | 94.63 | 97.54 | 98.28 | 98.96 |  
 | resnet101 |  86.20 | 95.07 | 97.57 | 98.34 | 98.90 | 
-| paper |  86.90 | 95.70 | - | - | - | 
+| paper |  86.90 | 95.70 | - | 98.30 | 99.00 | 
 
 
 ## Train
