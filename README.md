@@ -32,7 +32,7 @@ This is a non-official pytorch re-production of paper:[Learning Discriminative F
 
 ## Data
 
-Download Market1501 training data from [here](http://www.liangzheng.org/Project/project_reid.html)
+Download Market1501  data from [here](http://www.liangzheng.org/Project/project_reid.html)
 
 ## Weights
 
@@ -53,7 +53,7 @@ Use pretrained weight or your trained weight.
 
 ```
 python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> 
---backbone <correspond to weight,choices=['resnet50', 'resnet101']>--mode evaluate
+--backbone <correspond to weight,choices=['resnet50', 'resnet101']> --mode evaluate
 ```
 
 
