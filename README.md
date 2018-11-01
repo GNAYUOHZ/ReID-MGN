@@ -36,9 +36,7 @@ Download Market1501  data from [here](http://www.liangzheng.org/Project/project_
 
 ## Weights
 
-Pretrained weight with resnet50 backbone download from [here](https://drive.google.com/open?id=1ECkD2js0kA82ptod3QfzNDpP9fkt3LZB)  
-Pretrained weight with resnet101 backbone download from [here](https://drive.google.com/open?id=1LUo8JAHOcCKr2qwJdD0UYZsoVvW3BD60)
-
+Pretrained weight with resnet50 and resnet101 backbone will be upload later this week
 ## Train
 
 You can specify more parameters in opt.py
