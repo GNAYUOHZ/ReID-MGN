@@ -18,17 +18,16 @@ Non-official pytorch implement of paper:[Learning Discriminative Features with M
 ### With Re-Ranking
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
-| resnet50 |  94.28 | 95.67 | 97.45 | 97.89 | 98.60 |  
-| resnet101 |  94.50 | 95.87 | 97.62 | 98.16 | 98.57 | 
+| resnet50 |  94.33 | 95.58 | 97.54 | 97.92 | 98.46 |  
+| resnet101 |  9444 | 95.84 | 97.39 | 97.80 | 98.55 | 
 | paper |  94.20 | 96.60 | - | - | - | 
 
 ### Without Re-Ranking
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
-| resnet50 |  85.96 | 94.63 | 97.54 | 98.28 | 98.96 |  
-| resnet101 |  86.20 | 95.07 | 97.57 | 98.34 | 98.90 | 
+| resnet50 |  86.15 | 94.95 | 97.42 | 98.07 | 98.93 |  
+| resnet101 |  86.71 | 95.04 | 97.80 | 98.31 | 99.23 | 
 | paper |  86.90 | 95.70 | - | 98.30 | 99.00 | 
-
 
 ## Data
 
@@ -36,7 +35,7 @@ Download Market1501  data from [here](http://www.liangzheng.org/Project/project_
 
 ## Weights
 
-Pretrained weight with resnet50 and resnet101 backbone will be uploaded later in this week
+Pretrained weight with resnet50 and resnet101 backbone download from [here](https://drive.google.com/open?id=1TyM7J_UjLhvU8UUkxcKwLQq8VFHlEWCa)
 ## Train
 
 You can specify more parameters in opt.py
