@@ -1,5 +1,5 @@
 # Multiple Granularity Network
-Non-official pytorch implement of paper:[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438v1)
+Implement of paper:[Learning Discriminative Features with Multiple Granularities for Person Re-Identification](https://arxiv.org/abs/1804.01438v1)
 
 
 ## Dependencies
@@ -19,7 +19,7 @@ Non-official pytorch implement of paper:[Learning Discriminative Features with M
 | backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
 | :------: |  :------: | :------: | :------: | :------: |  :------: |   
 | resnet50 |  94.33 | 95.58 | 97.54 | 97.92 | 98.46 |  
-| resnet101 |  9444 | 95.84 | 97.39 | 97.80 | 98.55 | 
+| resnet101 |  94.44 | 95.84 | 97.39 | 97.80 | 98.55 | 
 | paper |  94.20 | 96.60 | - | - | - | 
 
 ### Without Re-Ranking
@@ -46,7 +46,7 @@ python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --mode train
 
 ## Test
 
-Use pretrained weight or your trained weight.
+Use pretrained weight or your trained weight
 
 ```
 python3 train_eval.py --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> 
