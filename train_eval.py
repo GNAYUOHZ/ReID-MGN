@@ -10,7 +10,7 @@ from data import Data
 from network import MGN
 from loss import Loss
 from utils import get_optimizer,extract_feature
-from evaluation_metrics import mean_ap, cmc, re_ranking
+from metrics import mean_ap, cmc, re_ranking
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
@@ -72,7 +72,7 @@ class Main():
 
         r, m_ap = rank(dist)
 
-        print('[without Re-Ranking] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
+        print('[Without Re-Ranking] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
               .format(m_ap, r[0], r[2], r[4], r[9]))
 
 
