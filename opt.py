@@ -10,33 +10,28 @@ parser.add_argument('--mode',
                     default='train', choices=['train', 'evaluate'],
                     help='train or evaluate ')
 
-parser.add_argument('--backbone',
-                    default='resnet50',
-                    choices=['resnet50', 'resnet101'],
-                    help='load weights ')
-
 parser.add_argument('--freeze',
                     default=False,
                     help='freeze backbone or not ')
 
 parser.add_argument('--weight',
-                    default='weights/model_400.pt',
+                    default='weights/model_500.pt',
                     help='load weights ')
 
 parser.add_argument('--epoch',
-                    default=400,
+                    default=500,
                     help='number of epoch to train')
 
 parser.add_argument('--lr',
                     default=2e-4,
-                    help='learning_rate')
+                    help='initial learning_rate')
 
 parser.add_argument('--lr_scheduler',
                     default=[320, 380],
-                    help='MultiStepLR')
+                    help='MultiStepLR,decay the learning rate')
 
 parser.add_argument("--batchid",
-                    default=4,
+                    default=16,
                     help='the batch for id')
 
 parser.add_argument("--batchimage",
@@ -44,7 +39,7 @@ parser.add_argument("--batchimage",
                     help='the batch of per id')
 
 parser.add_argument("--batchtest",
-                    default=8,
+                    default=16,
                     help='the batch size for test')
 
 opt = parser.parse_args()

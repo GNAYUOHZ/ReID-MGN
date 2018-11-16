@@ -1,6 +1,6 @@
-import numpy as np
 from collections import defaultdict
 from sklearn.metrics import average_precision_score
+import numpy as np
 
 
 def _unique_sample(ids_dict, num):
@@ -141,7 +141,6 @@ Returns:
 """
 
 
-
 def k_reciprocal_neigh(initial_rank, i, k1):
     forward_k_neigh_index = initial_rank[i, :k1 + 1]
     backward_k_neigh_index = initial_rank[forward_k_neigh_index, :k1 + 1]
@@ -211,4 +210,3 @@ def re_ranking(q_g_dist, q_q_dist, g_g_dist, k1=20, k2=6, lambda_value=0.3):
     del jaccard_dist
     final_dist = final_dist[:query_num, query_num:]
     return final_dist
-

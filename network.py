@@ -1,19 +1,14 @@
 import copy
 import torch
 import torch.nn as nn
-from opt import opt
-from torchvision.models.resnet import resnet50, resnet101, Bottleneck
-
+from torchvision.models.resnet import resnet50, Bottleneck
 
 class MGN(nn.Module):
     def __init__(self):
         super(MGN, self).__init__()
         num_classes = 751
         feats = 256
-        if opt.backbone == 'resnet50':
-            resnet = resnet50(pretrained=True)
-        elif opt.backbone == 'resnet101':
-            resnet = resnet101(pretrained=True)
+        resnet = resnet50(pretrained=True)
 
         self.backbone = nn.Sequential(
             resnet.conv1,

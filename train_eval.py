@@ -3,13 +3,14 @@ import numpy as np
 from scipy.spatial.distance import cdist
 
 import torch
-from torch.optim import Adam, lr_scheduler
+from torch.optim import lr_scheduler
 
 from opt import opt
 from data import Data
 from network import MGN
 from loss import Loss
-from functions import mean_ap, cmc, re_ranking
+from utils import get_optimizer,extract_feature
+from evaluation_metrics import mean_ap, cmc, re_ranking
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
@@ -23,7 +24,7 @@ class Main():
 
         self.model = model.to('cuda')
         self.loss = loss
-        self.optimizer = self.get_optimizer(model)
+        self.optimizer = get_optimizer(model)
         self.scheduler = lr_scheduler.MultiStepLR(self.optimizer, milestones=opt.lr_scheduler, gamma=0.1)
 
     def train(self):
@@ -40,77 +41,39 @@ class Main():
             loss.backward()
             self.optimizer.step()
 
-    def test(self):
-
-        epoch = self.scheduler.last_epoch + 1
-        lr = self.scheduler.get_lr()[0]
-
+    def evaluate(self):
         self.model.eval()
-        qf = self.extract_feature(self.query_loader).numpy()
-        gf = self.extract_feature(self.test_loader).numpy()
+        qf = extract_feature(self.model,self.query_loader).numpy()
+        gf = extract_feature(self.model,self.test_loader).numpy()
+
+        def rank(dist):
+            r = cmc(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras,
+                    separate_camera_set=False,
+                    single_gallery_shot=False,
+                    first_match_break=True)
+            m_ap = mean_ap(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras)
+
+            return r, m_ap
 
         #########################   re rank##########################
         q_g_dist = np.dot(qf, np.transpose(gf))
         q_q_dist = np.dot(qf, np.transpose(qf))
         g_g_dist = np.dot(gf, np.transpose(gf))
         dist = re_ranking(q_g_dist, q_q_dist, g_g_dist)
-        r = cmc(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras,
-                separate_camera_set=False,
-                single_gallery_shot=False,
-                first_match_break=True)
-        m_ap = mean_ap(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras)
 
-        print('epoch:{:d} lr:{:.6f} [   re_rank] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
-              .format(epoch, lr, m_ap, r[0], r[2], r[4], r[9]))
+        r, m_ap = rank(dist)
+
+        print('[With    Re-Ranking] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
+              .format(m_ap, r[0], r[2], r[4], r[9]))
+
 
         #########################no re rank##########################
         dist = cdist(qf, gf)
-        r = cmc(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras,
-                separate_camera_set=False,
-                single_gallery_shot=False,
-                first_match_break=True)
-        m_ap = mean_ap(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras)
 
-        print('epoch:{:d} lr:{:.6f} [no re_rank] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
-              .format(epoch, lr, m_ap, r[0], r[2], r[4],r[9]))
+        r, m_ap = rank(dist)
 
-    def get_optimizer(self, net):
-
-        if opt.freeze:
-
-            for p in net.parameters():
-                p.requires_grad = True
-            for q in net.backbone.parameters():
-                q.requires_grad = False
-
-            optimizer = Adam(filter(lambda p: p.requires_grad, net.parameters()), lr=opt.lr, weight_decay=5e-4,amsgrad=True)
-
-        else:
-
-            optimizer = Adam(net.parameters(), lr=opt.lr, weight_decay=5e-4, amsgrad=True)
-
-        return optimizer
-
-    def fliphor(self, inputs):
-        inv_idx = torch.arange(inputs.size(3) - 1, -1, -1).long()  # N x C x H x W
-        return inputs.index_select(3, inv_idx)
-
-    def extract_feature(self, loader):
-        features = torch.FloatTensor()
-        for (inputs, labels) in loader:
-            ff = torch.FloatTensor(inputs.size(0), 2048).zero_()
-            for i in range(2):
-                if i == 1:
-                    inputs = self.fliphor(inputs)
-                input_img = inputs.to('cuda')
-                outputs = self.model(input_img)
-                f = outputs[0].data.cpu()
-                ff = ff + f
-
-            fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
-            ff = ff.div(fnorm.expand_as(ff))
-            features = torch.cat((features, ff), 0)
-        return features
+        print('[without Re-Ranking] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
+              .format(m_ap, r[0], r[2], r[4], r[9]))
 
 
 if __name__ == '__main__':
@@ -127,10 +90,10 @@ if __name__ == '__main__':
             reid.train()
             if epoch % 50 == 0:
                 print('\nstart evaluate')
-                reid.test()
+                reid.evaluate()
                 torch.save(model.state_dict(), ('weights/model_{}.pt'.format(epoch)))
 
     if opt.mode == 'evaluate':
         print('start evaluate')
         model.load_state_dict(torch.load(opt.weight))
-        reid.test()
+        reid.evaluate()
