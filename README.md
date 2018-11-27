@@ -54,7 +54,7 @@ python3 train_eval.py --mode evaluate --data_path <path/to/Market-1501-v15.09.15
 ## Visualize
 
 Visualize rank10 query result of one image(query from bounding_box_test)
-![image](https://drive.google.com/open?id=1Ykuqe_-6v0MpHiW8L4zdczh62CF9MMev)
+![image](https://s1.ax1x.com/2018/11/27/FV9xyj.png)
 
 ```
 python3 train_eval.py --mode vis --query_image <path/to/query_image> --weight <path/to/weight_name.pt> 
