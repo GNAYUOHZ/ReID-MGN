@@ -30,6 +30,8 @@ Implement of paper:[Learning Discriminative Features with Multiple Granularities
 
 Market1501 data download from [here](http://www.liangzheng.org/Project/project_reid.html)
 
+DukeMTMC-reID data download from [here](http://vision.cs.duke.edu/DukeMTMC/)
+
 ## Weights
 
 Pretrained weight download from [here](https://drive.google.com/open?id=1TyM7J_UjLhvU8UUkxcKwLQq8VFHlEWCa)
@@ -47,6 +49,15 @@ Use pretrained weight or your trained weight
 
 ```
 python3 train_eval.py --mode evaluate --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> 
+```
+
+## Visualize
+
+Visualize rank10 query result of one image(query from bounding_box_test)
+![image](https://drive.google.com/open?id=1Ykuqe_-6v0MpHiW8L4zdczh62CF9MMev)
+
+```
+python3 train_eval.py --mode vis --query_image <path/to/query_image> --weight <path/to/weight_name.pt> 
 ```
 
 

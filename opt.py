@@ -3,19 +3,23 @@ import argparse
 parser = argparse.ArgumentParser(description='reid')
 
 parser.add_argument('--data_path',
-                    default="path/to/Market-1501-v15.09.15",
+                    default="/home/wangliu/zymount/dataset/Market-1501-v15.09.15",
                     help='path of Market-1501-v15.09.15')
 
 parser.add_argument('--mode',
-                    default='train', choices=['train', 'evaluate'],
+                    default='train', choices=['train', 'evaluate', 'vis'],
                     help='train or evaluate ')
+
+parser.add_argument('--query_image',
+                    default='0001_c1s1_001051_00.jpg',
+                    help='path to the image you want to query')
 
 parser.add_argument('--freeze',
                     default=False,
                     help='freeze backbone or not ')
 
 parser.add_argument('--weight',
-                    default='weights/model_500.pt',
+                    default='weights/model.pt',
                     help='load weights ')
 
 parser.add_argument('--epoch',
@@ -31,7 +35,7 @@ parser.add_argument('--lr_scheduler',
                     help='MultiStepLR,decay the learning rate')
 
 parser.add_argument("--batchid",
-                    default=16,
+                    default=4,
                     help='the batch for id')
 
 parser.add_argument("--batchimage",
@@ -39,7 +43,7 @@ parser.add_argument("--batchimage",
                     help='the batch of per id')
 
 parser.add_argument("--batchtest",
-                    default=16,
+                    default=8,
                     help='the batch size for test')
 
 opt = parser.parse_args()

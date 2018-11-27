@@ -31,6 +31,8 @@ class Data():
         self.test_loader = dataloader.DataLoader(self.testset, batch_size=opt.batchtest, num_workers=8,pin_memory=True)
         self.query_loader = dataloader.DataLoader(self.queryset, batch_size=opt.batchtest, num_workers=8,pin_memory=True)
 
+        self.query_image = test_transform(default_loader(opt.query_image))
+
 
 class Market1501(dataset.Dataset):
     def __init__(self, transform, dtype, data_path):
