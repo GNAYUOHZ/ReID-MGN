@@ -54,6 +54,9 @@ python3 train_eval.py --mode evaluate --data_path <path/to/Market-1501-v15.09.15
 ## Visualize
 
 Visualize rank10 query result of one image(query from bounding_box_test)
+
+Extract features will take a few munutes, or you can save features as .mat file for multiple uses
+
 ![image](https://s1.ax1x.com/2018/11/27/FV9xyj.png)
 
 ```
