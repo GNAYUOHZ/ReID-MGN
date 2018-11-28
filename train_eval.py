@@ -46,7 +46,10 @@ class Main():
             self.optimizer.step()
 
     def evaluate(self):
+
         self.model.eval()
+
+        print('extract features, this may take a few minutes')
         qf = extract_feature(self.model, tqdm(self.query_loader)).numpy()
         gf = extract_feature(self.model, tqdm(self.test_loader)).numpy()
 
