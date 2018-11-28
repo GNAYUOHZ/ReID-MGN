@@ -47,8 +47,8 @@ class Main():
 
     def evaluate(self):
         self.model.eval()
-        qf = extract_feature(self.model,self.query_loader).numpy()
-        gf = extract_feature(self.model,self.test_loader).numpy()
+        qf = extract_feature(self.model, tqdm(self.query_loader)).numpy()
+        gf = extract_feature(self.model, tqdm(self.test_loader)).numpy()
 
         def rank(dist):
             r = cmc(dist, self.queryset.ids, self.testset.ids, self.queryset.cameras, self.testset.cameras,
@@ -146,7 +146,7 @@ if __name__ == '__main__':
                 os.makedirs('weights',exist_ok=True)
                 torch.save(model.state_dict(), ('weights/model_{}.pt'.format(epoch)))
 
-    if opt.mode == 'eval':
+    if opt.mode == 'evaluate':
         print('start evaluate')
         model.load_state_dict(torch.load(opt.weight))
         reid.evaluate()
