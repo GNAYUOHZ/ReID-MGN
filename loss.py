@@ -1,6 +1,6 @@
 from torch.nn import CrossEntropyLoss
 from torch.nn.modules import loss
-from utils import TripletLoss
+from utils.TripletLoss import TripletLoss
 
 
 class Loss(loss._Loss):
@@ -17,15 +17,11 @@ class Loss(loss._Loss):
         CrossEntropy_Loss = [cross_entropy_loss(output, labels) for output in outputs[4:]]
         CrossEntropy_Loss = sum(CrossEntropy_Loss) / len(CrossEntropy_Loss)
 
-        loss_sum =Triplet_Loss + 2* CrossEntropy_Loss
+        loss_sum = Triplet_Loss + 2 * CrossEntropy_Loss
 
-        print('\rtotal loss:%.2f  Triplet_Loss:%.2f  CrossEntropy_Loss:%.2f'%(
-                loss_sum.data.cpu().numpy(),
-                Triplet_Loss.data.cpu().numpy(),
-                CrossEntropy_Loss.data.cpu().numpy()),
-                end=' ')
+        print('\rtotal loss:%.2f  Triplet_Loss:%.2f  CrossEntropy_Loss:%.2f' % (
+            loss_sum.data.cpu().numpy(),
+            Triplet_Loss.data.cpu().numpy(),
+            CrossEntropy_Loss.data.cpu().numpy()),
+              end=' ')
         return loss_sum
-
-
-
-

@@ -3,6 +3,7 @@ import numpy as np
 from scipy.spatial.distance import cdist
 from tqdm import tqdm
 import matplotlib
+
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
@@ -13,8 +14,10 @@ from opt import opt
 from data import Data
 from network import MGN
 from loss import Loss
-from utils import get_optimizer,extract_feature
-from metrics import mean_ap, cmc, re_ranking
+from utils.get_optimizer import get_optimizer
+from utils.extract_feature import extract_feature
+from utils.metrics import mean_ap, cmc, re_ranking
+
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
@@ -72,7 +75,6 @@ class Main():
 
         print('[With    Re-Ranking] mAP: {:.4f} rank1: {:.4f} rank3: {:.4f} rank5: {:.4f} rank10: {:.4f}'
               .format(m_ap, r[0], r[2], r[4], r[9]))
-
 
         #########################no re rank##########################
         dist = cdist(qf, gf)
@@ -136,25 +138,25 @@ if __name__ == '__main__':
     data = Data()
     model = MGN()
     loss = Loss()
-    reid = Main(model, loss, data)
+    main = Main(model, loss, data)
 
     if opt.mode == 'train':
 
-        for epoch in range(1, opt.epoch+1):
+        for epoch in range(1, opt.epoch + 1):
             print('\nepoch', epoch)
-            reid.train()
+            main.train()
             if epoch % 50 == 0:
                 print('\nstart evaluate')
-                reid.evaluate()
-                os.makedirs('weights',exist_ok=True)
+                main.evaluate()
+                os.makedirs('weights', exist_ok=True)
                 torch.save(model.state_dict(), ('weights/model_{}.pt'.format(epoch)))
 
     if opt.mode == 'evaluate':
         print('start evaluate')
         model.load_state_dict(torch.load(opt.weight))
-        reid.evaluate()
+        main.evaluate()
 
     if opt.mode == 'vis':
         print('visualize')
         model.load_state_dict(torch.load(opt.weight))
-        reid.vis()
+        main.vis()
