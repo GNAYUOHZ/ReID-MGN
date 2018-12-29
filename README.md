@@ -54,7 +54,8 @@ NOTICE:You need to change num_classes in network depend on how many people in yo
 
 ## Weights
 
-Pretrained weight download from [here](https://drive.google.com/open?id=1TyM7J_UjLhvU8UUkxcKwLQq8VFHlEWCa)
+After I test the corrected network.
+
 ## Train
 
 You can specify more parameters in opt.py
