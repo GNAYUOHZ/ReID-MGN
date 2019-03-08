@@ -10,6 +10,7 @@ class MGN(nn.Module):
     def __init__(self):
         super(MGN, self).__init__()
 
+        feats = 256
         resnet = resnet50(pretrained=True)
 
         self.backbone = nn.Sequential(
@@ -42,19 +43,19 @@ class MGN(nn.Module):
         self.maxpool_zp2 = nn.MaxPool2d(kernel_size=(12, 8))
         self.maxpool_zp3 = nn.MaxPool2d(kernel_size=(8, 8))
 
-        self.reduction = nn.Sequential(nn.Conv2d(2048, 256, 1, bias=False), nn.BatchNorm2d(256), nn.ReLU())
+        self.reduction = nn.Sequential(nn.Conv2d(2048, feats, 1, bias=False), nn.BatchNorm2d(feats), nn.ReLU())
 
         self._init_reduction(self.reduction)
 
-        self.fc_id_2048_0 = nn.Linear(2048, num_classes)
-        self.fc_id_2048_1 = nn.Linear(2048, num_classes)
-        self.fc_id_2048_2 = nn.Linear(2048, num_classes)
+        self.fc_id_2048_0 = nn.Linear(feats, num_classes)
+        self.fc_id_2048_1 = nn.Linear(feats, num_classes)
+        self.fc_id_2048_2 = nn.Linear(feats, num_classes)
 
-        self.fc_id_256_1_0 = nn.Linear(256, num_classes)
-        self.fc_id_256_1_1 = nn.Linear(256, num_classes)
-        self.fc_id_256_2_0 = nn.Linear(256, num_classes)
-        self.fc_id_256_2_1 = nn.Linear(256, num_classes)
-        self.fc_id_256_2_2 = nn.Linear(256, num_classes)
+        self.fc_id_256_1_0 = nn.Linear(feats, num_classes)
+        self.fc_id_256_1_1 = nn.Linear(feats, num_classes)
+        self.fc_id_256_2_0 = nn.Linear(feats, num_classes)
+        self.fc_id_256_2_1 = nn.Linear(feats, num_classes)
+        self.fc_id_256_2_2 = nn.Linear(feats, num_classes)
 
         self._init_fc(self.fc_id_2048_0)
         self._init_fc(self.fc_id_2048_1)
@@ -111,13 +112,9 @@ class MGN(nn.Module):
         f1_p3 = self.reduction(z1_p3).squeeze(dim=3).squeeze(dim=2)
         f2_p3 = self.reduction(z2_p3).squeeze(dim=3).squeeze(dim=2)
 
-        zg_p1 = zg_p1.squeeze(dim=3).squeeze(dim=2)
-        zg_p2 = zg_p2.squeeze(dim=3).squeeze(dim=2)
-        zg_p3 = zg_p3.squeeze(dim=3).squeeze(dim=2)
-
-        l_p1 = self.fc_id_2048_0(zg_p1)
-        l_p2 = self.fc_id_2048_1(zg_p2)
-        l_p3 = self.fc_id_2048_2(zg_p3)
+        l_p1 = self.fc_id_2048_0(fg_p1)
+        l_p2 = self.fc_id_2048_1(fg_p2)
+        l_p3 = self.fc_id_2048_2(fg_p3)
 
         l0_p2 = self.fc_id_256_1_0(f0_p2)
         l1_p2 = self.fc_id_256_1_1(f1_p2)

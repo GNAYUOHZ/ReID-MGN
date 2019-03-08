@@ -14,17 +14,12 @@ Implement of paper:[Learning Discriminative Features with Multiple Granularities
 
 ## Current Result
 
-### With Re-Ranking
-| backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
-| :------: |  :------: | :------: | :------: | :------: |  :------: |   
-| resnet50 |  94.33 | 95.58 | 97.54 | 97.92 | 98.46 | 
-| paper |  94.20 | 96.60 | - | - | - | 
+| Re-Ranking| backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
+| :------: | :------: |  :------: | :------: | :------: | :------: |  :------: |   
+| yes | resnet50 |  94.33 | 95.58 | 97.54 | 97.92 | 98.46 | 
+| no | resnet50 |  86.15 | 94.95 | 97.42 | 98.07 | 98.93 | 
 
-### Without Re-Ranking
-| backbone |  mAP | rank1 | rank3 | rank5 | rank10 |  
-| :------: |  :------: | :------: | :------: | :------: |  :------: |   
-| resnet50 |  86.15 | 94.95 | 97.42 | 98.07 | 98.93 | 
-| paper |  86.90 | 95.70 | - | 98.30 | 99.00 | 
+
 
 ## Data
 
@@ -47,21 +42,21 @@ Download from [here](http://vision.cs.duke.edu/DukeMTMC/)
 3. Download "cuhk03_new_protocol_config_detected.mat" from "https://github.com/zhunzhong07/person-re-ranking/tree/master/evaluation/data/CUHK03"
 and put it with cuhk-03.mat. We need this new protocol to split the dataset.
 ```
-python3 utils/transform_cuhk03.py --src <path/to/cuhk03_release> --dst <path/to/save>
+python utils/transform_cuhk03.py --src <path/to/cuhk03_release> --dst <path/to/save>
 ```
 
 NOTICE:You need to change num_classes in network depend on how many people in your train dataset! e.g. 751 in Market1501
 
 ## Weights
 
-After I test the corrected network.
+Pretrained weight download from [here](https://drive.google.com/open?id=16V7ZsflBbINHPjh_UVYGBVO6NuSxEMTi)
 
 ## Train
 
 You can specify more parameters in opt.py
 
 ```
-python3 main.py --mode train --data_path <path/to/Market-1501-v15.09.15> 
+python main.py --mode train --data_path <path/to/Market-1501-v15.09.15> 
 ```
 
 ## Evaluate
@@ -69,7 +64,7 @@ python3 main.py --mode train --data_path <path/to/Market-1501-v15.09.15>
 Use pretrained weight or your trained weight
 
 ```
-python3 main.py --mode evaluate --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> 
+python main.py --mode evaluate --data_path <path/to/Market-1501-v15.09.15> --weight <path/to/weight_name.pt> 
 ```
 
 ## Visualize
