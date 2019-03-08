@@ -76,7 +76,7 @@ Extract features will take a few munutes, or you can save features as .mat file 
 ![image](https://s1.ax1x.com/2018/11/27/FV9xyj.png)
 
 ```
-python3 main.py --mode vis --query_image <path/to/query_image> --weight <path/to/weight_name.pt> 
+python main.py --mode vis --query_image <path/to/query_image> --weight <path/to/weight_name.pt> 
 ```
 
 
